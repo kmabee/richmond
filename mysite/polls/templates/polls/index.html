@@ -1,0 +1,29 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+{% if latest_question_list %}
+    <h1>Active Polls</h1>
+    <table style="width:100%">
+    <tr>
+        <th>Question</th>
+        <th>Asked</th>
+        <th>Last Voted</th>
+        <th>Total Votes</th>
+        <th>Most Popular</th>
+    </tr>
+    {% for question in latest_question_list %}
+    <tr>
+        <td><a href="{% url 'polls:detail' question.id %}" > {{ question.question_text }} </a></td>
+        <td>{{ question.pub_date }}</td>
+        <td>{{ question.last_voted }}</td>
+        <td>{{ question.total_votes }}</td>
+        <td>FIXME</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

@@ -1,0 +1,16 @@
+<h1>Ask A Question</h1>
+
+
+{% if error_message %} <p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:ask' %}" method="post"> <!- FIXME : userID should be passed ->
+{% csrf_token %}
+    <label for="question">Question: </label>
+    <input type="text" name="question" id="question" value="" /></br></br>
+    {% for i in choice_fields %}
+        <label for="choice{{i}}">Choice {{i}}: </label>
+        <input type="text" name="choice{{i}}" id="choice{{i}" value="" /></br>
+    {% endfor %}
+    </br>
+<input type="submit" value="Submit" />
+</form>

@@ -1,0 +1,66 @@
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+{% if latest_question_list %}
+    <h1>Active Polls Summary</h1>
+    {{ latest_question_list.count }} questions:</br>
+    <table style="width:100%">
+    <tr>
+        <th>Question</th>
+        <th>Asked</th>
+        <th>Last Voted</th>
+        <th>Choices</th>
+        <th>Total Votes</th>
+        <th>Most Popular</th>
+    </tr>
+    {% for question in latest_question_list %}
+    <tr>
+        <td><a href="{% url 'polls:detail' question.id %}" > {{ question.question_text }} </a></td>
+        <td>{{ question.pub_date }}</td>
+        <td>{{ question.last_voted }}</td>
+        <td>{{ question.choice_set.all.count }}</td>
+        <td>{{ question.votes }}</td>
+        <td>{{ question.choice_set.all|dictsort:"votes"|last }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+{% if inactive_question_list %}
+    <h1>Disabled Polls Summary</h1>
+    {{ inactive_question_list.count }} questions:</br>
+    <table style="width:100%">
+    <tr>
+        <th>Question</th>
+        <th>Asked</th>
+        <th>Last Voted</th>
+        <th>Choices</th>
+        <th>Total Votes</th>
+        <th>Most Popular</th>
+    </tr>
+    {% for question in inactive_question_list %}
+    <tr>
+        <td><a href="{% url 'polls:detail' question.id %}" > {{ question.question_text }} </a></td>
+        <td>{{ question.pub_date }}</td>
+        <td>{{ question.last_voted }}</td>
+        <td>{{ question.choice_set.all.count }}</td>
+        <td>{{ question.votes }}</td>
+        <td>{{ question.choice_set.all|dictsort:"votes"|last }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No disabled questions.</p>
+{% endif %}
+
+
+
+
+</br>
+<a href="{% url 'polls:ask' %}" >Ask a new question</a>
+
